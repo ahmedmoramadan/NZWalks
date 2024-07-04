@@ -10,6 +10,75 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "NZWalks.API.Controllers.RegionsController",
+    "Method": "Create",
+    "RelativePath": "api/Regions",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "AddR",
+        "Type": "NZWalks.API.Models.DTOs.AddRegionDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NZWalks.API.Controllers.RegionsController",
+    "Method": "GetById",
+    "RelativePath": "api/Regions/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NZWalks.API.Controllers.RegionsController",
+    "Method": "Update",
+    "RelativePath": "api/Regions/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "Update",
+        "Type": "NZWalks.API.Models.DTOs.UpdateRegionDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "NZWalks.API.Controllers.RegionsController",
+    "Method": "Delete",
+    "RelativePath": "api/Regions/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "NZWalks.API.Controllers.StudentsController",
     "Method": "GetAllStudents",
     "RelativePath": "api/Students",

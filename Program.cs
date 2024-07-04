@@ -1,5 +1,3 @@
-using NZWalks.API.Data;
-
 namespace NZWalks.API
 {
     public class Program
@@ -17,6 +15,10 @@ namespace NZWalks.API
 
             builder.Services.AddDbContext<AppDbContext>(op =>
             op.UseSqlServer(builder.Configuration.GetConnectionString("CS")));
+
+            builder.Services.AddScoped<IRegionRepository , RegionRepository>();
+
+            builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 
             var app = builder.Build();
 

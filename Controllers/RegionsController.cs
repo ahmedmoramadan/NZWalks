@@ -1,55 +1,65 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using NZWalks.API.Models.Domain;
-using NZWalks.API.Models.DTOs;
-
-namespace NZWalks.API.Controllers
+﻿namespace NZWalks.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class RegionsController : ControllerBase
     {
-        [HttpGet]
-        public IActionResult GetAll()
+        private readonly IRegionRepository _regionRepository;
+        private readonly IMapper mapper;
+
+        public RegionsController(IRegionRepository regionRepository , IMapper mapper)
         {
-            return Ok();
+            _regionRepository = regionRepository;
+            this.mapper = mapper;
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            List<Region> RG = await _regionRepository.GetAllAsync();
+            var RGDto = mapper.Map<List<RegionDto>>(RG);
+            return Ok(RGDto);
         }
         [HttpGet]
         [Route("{id:guid}")]
-        public IActionResult GetById([FromRoute] Guid id)
+        public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
-            return Ok();
+            var RG =await _regionRepository.GetByIdAsync(id);
+            if(RG == null)
+            {
+                return NotFound();
+            }
+            return Ok(mapper.Map<RegionDto>(RG));
         }
         [HttpPost]
-        public IActionResult Create(AddRegionDto AddR)
+        public async Task<IActionResult> Create(AddRegionDto AddR)
         {
-            var RG = new Region
-            {
-                Code = AddR.Code,
-                Name = AddR.Name,
-                RegionImageUrl = AddR.RegionImageUrl,
-            };
+            var RDM = mapper.Map<Region>(AddR);
 
-            var rgdto = new RegionDto
-            {
-                Id = RG.Id,
-                Name = RG.Name,
-                RegionImageUrl = RG.RegionImageUrl,
-            };
-            return CreatedAtAction(nameof(GetById), new {id = RG.Id} , rgdto);
+            RDM = await _regionRepository.CreateAsync(RDM);
+            var rgdto = mapper.Map<RegionDto>(RDM);
+            return CreatedAtAction(nameof(GetById), new {id = rgdto.Id} , rgdto);
         }
         [HttpPut]
         [Route("{id:guid}")]
-        public IActionResult Update([FromRoute]Guid id, [FromBody] UpdateRegionDto Update)
+        public async Task<IActionResult> Update([FromRoute]Guid id, [FromBody] UpdateRegionDto Update)
         {
+         
+            var RGDto = mapper.Map<Region>(Update);
 
-            return Ok();
+            RGDto = await _regionRepository.UpdateAsync(id, RGDto);
+            if (RGDto == null) { return NotFound(); }
+            var RMDto = mapper.Map<RegionDto>(RGDto);
+            return Ok(RMDto);
         }
         [HttpDelete]
         [Route("{id:guid}")]
-        public IActionResult Delete([FromRoute]Guid id)
+        public async Task<IActionResult> Delete([FromRoute]Guid id)
         {
-            return Ok();
+            var RG = await _regionRepository.DeleteAsync(id);
+            if(RG == null) { return NotFound(); }
+
+            var RGDto = mapper.Map<RegionDto>(RG);
+            return Ok(RGDto);
         }
     }
 }
