@@ -43,7 +43,14 @@
             Domain = await _walkRepository.UpdateAsync(id, Domain);
             if(Domain == null) { return NotFound(); }
             return Ok(_mapper.Map<WalkDto>(Domain));
-
+        }
+        [HttpDelete]
+        [Route("{id:guid}")]
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
+        {
+            var WK =await _walkRepository.DeleteAsync(id);
+            if(WK == null) { return NotFound(); }
+            return Ok(_mapper.Map<WalkDto>(WK));
         }
     }
 }

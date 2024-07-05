@@ -152,6 +152,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "NZWalks.API.Controllers.WalksController",
+    "Method": "Delete",
+    "RelativePath": "api/Walks/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "NZWalks.API.Controllers.WeatherForecastController",
     "Method": "Get",
     "RelativePath": "WeatherForecast",

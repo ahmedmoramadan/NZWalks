@@ -6,6 +6,7 @@
         Task<Walk?> GetByIdAsync(Guid walk);
         Task<List<Walk>> GetAllAsync();
         Task<Walk?> UpdateAsync(Guid id ,Walk walk);
+        Task<Walk?> DeleteAsync(Guid id); 
     }
     public class WalkRepository : IWalkRepository
     {
@@ -19,6 +20,15 @@
             await _Context.AddAsync(walk);
             await _Context.SaveChangesAsync();
             return walk;
+        }
+
+        public async Task<Walk?> DeleteAsync(Guid id)
+        {
+           var EWK = await GetByIdAsync(id);
+            if (EWK == null) { return null; }
+            _Context.Walks.Remove(EWK);
+            await _Context.SaveChangesAsync();
+            return EWK;
         }
 
         public async Task<List<Walk>> GetAllAsync()
